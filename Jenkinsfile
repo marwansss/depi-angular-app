@@ -6,7 +6,7 @@
         dir('backend') {
           sh "docker build -t maro4299311/nodejs:$BUILD_NUMBER ."
         }
-        dir('frontend') {
+        dir('front-end') {
           sh "docker build -t maro4299311/angular:$BUILD_NUMBER ."
         }
       }
