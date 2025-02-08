@@ -29,7 +29,10 @@
         sh "sed -i 's|image:.*|image: maro4299311/nodejs:$BUILD_NUMBER|g' k8s/backend.yml"
         sh "sed -i 's|image:.*|image: maro4299311/angular:$BUILD_NUMBER|g' k8s/frontend.yml"
 
-        sh "kubectl apply -f k8s/backend.yml && kubectl apply -f k8s/frontend.yml"
+        withCredentials([file(credentialsId: 'k8s', variable: 'k8s')]) {
+    sh "kubectl --kubeconfig=$k8s apply -f k8s/backend.yml && kubectl --kubeconfig=$k8s apply -f k8s/frontend.yml"
+}
+        
       }
     }
   }
