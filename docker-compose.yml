@@ -1,0 +1,30 @@
+version: "3"
+services:
+  db:
+   image: mysql
+   restart: always
+   environment:
+     MYSQL_DATABASE: "angular"
+     MYSQL_ROOT_PASSWORD: "rootpassword"
+   volumes:
+   - mysql-data:/var/lib/mysql
+
+
+  backend:
+    image: backend
+    restart: always
+    ports:
+    - 3000:3000
+    depends_on:
+    - db
+
+  frontend:
+    image: frontend
+    restart: always
+    ports:
+    - 80:80
+    depends_on:
+    - backend
+
+volumes:
+  mysql-data:
